@@ -1,1 +1,3 @@
 A small mod that adds a new means of mass item storage in the form of a counterpart to the ender chest.
+
+The code is stupid and ugly. I know. You may ask "why would he make an ExtendedItemStack class when ItemStacks aren't actually limited to a size of 64 in the code?", or "why didn't he extend GuiContainer?", or something along those lines. To put the answer simply, I will not rest until the world lies in ruins, and no amount of logic will stop me.
