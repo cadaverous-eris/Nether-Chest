@@ -1,0 +1,100 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+    "textures": {
+        "0": "netherchest:blocks/nether_chest_front",
+        "1": "netherchest:blocks/nether_chest_side",
+        "2": "netherchest:blocks/nether_chest_top",
+        "3": "netherchest:blocks/nether_chest_lock",
+	"particle": "netherchest:blocks/nether_chest_side"
+    },
+    "elements": [
+        {
+            "name": "Chest",
+            "from": [ 1.0, 0.0, 1.0 ], 
+            "to": [ 15.0, 14.0, 15.0 ], 
+            "faces": {
+                "north": { "texture": "#0", "uv": [ 1.0, 1.0, 15.0, 15.0 ] },
+                "east": { "texture": "#1", "uv": [ 1.0, 1.0, 15.0, 15.0 ] },
+                "south": { "texture": "#1", "uv": [ 1.0, 1.0, 15.0, 15.0 ] },
+                "west": { "texture": "#1", "uv": [ 1.0, 1.0, 15.0, 15.0 ] },
+                "up": { "texture": "#2", "uv": [ 1.0, 1.0, 15.0, 15.0 ] },
+                "down": { "texture": "#2", "uv": [ 1.0, 1.0, 15.0, 15.0 ] }
+            }
+        },
+        {
+            "name": "Lock",
+            "from": [ 7.0, 7.0, 0.0 ], 
+            "to": [ 9.0, 11.0, 1.0 ], 
+            "faces": {
+                "north": { "texture": "#3", "uv": [ 1.0, 1.0, 3.0, 5.0 ] },
+                "east": { "texture": "#3", "uv": [ 3.0, 1.0, 4.0, 5.0 ] },
+                "south": { "texture": "#3", "uv": [ 4.0, 1.0, 6.0, 5.0 ] },
+                "west": { "texture": "#3", "uv": [ 0.0, 1.0, 1.0, 5.0 ] },
+                "up": { "texture": "#3", "uv": [ 1.0, 0.0, 3.0, 1.0 ], "rotation": 180 },
+                "down": { "texture": "#3", "uv": [ 3.0, 0.0, 5.0, 1.0 ] }
+            }
+        }
+    ],
+    "display": {
+
+        "gui": {
+
+            "rotation": [ 30, 225, 0 ],
+
+            "translation": [ 0, 0, 0],
+
+            "scale":[ 0.625, 0.625, 0.625 ]
+
+        },
+        "ground": {
+
+            "rotation": [ 0, 0, 0 ],
+
+            "translation": [ 0, 3, 0],
+
+            "scale":[ 0.25, 0.25, 0.25 ]
+
+        },
+
+        "fixed": {
+
+            "rotation": [ 0, 0, 0 ],
+
+            "translation": [ 0, 0, 0],
+
+            "scale":[ 0.5, 0.5, 0.5 ]
+
+        },
+
+        "thirdperson_righthand": {
+
+            "rotation": [ 75, 45, 0 ],
+
+            "translation": [ 0, 2.5, 0],
+
+            "scale": [ 0.375, 0.375, 0.375 ]
+
+        },
+
+        "firstperson_righthand": {
+
+            "rotation": [ 0, 45, 0 ],
+
+            "translation": [ 0, 0, 0 ],
+
+            "scale": [ 0.40, 0.40, 0.40 ]
+
+        },
+
+        "firstperson_lefthand": {
+
+            "rotation": [ 0, 225, 0 ],
+
+            "translation": [ 0, 0, 0 ],
+
+            "scale": [ 0.40, 0.40, 0.40 ]
+
+        }
+
+    }
+}

@@ -1,0 +1,16 @@
+[
+{
+  "modid": "netherchest",
+  "name": "Nether Chest",
+  "description": "A counterpart to the ender chest, useful for mass storage",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["mangoose"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
