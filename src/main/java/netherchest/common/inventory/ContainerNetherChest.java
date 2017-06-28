@@ -320,9 +320,4 @@ public class ContainerNetherChest extends Container {
 		return super.slotClick(slotId, dragType, clickTypeIn, player);
 	}
 
-	@Override
-	protected void retrySlotClick(int slotId, int clickedButton, boolean mode, EntityPlayer playerIn) {
-
-	}
-
 }

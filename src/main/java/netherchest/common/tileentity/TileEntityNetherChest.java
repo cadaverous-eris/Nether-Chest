@@ -1,5 +1,7 @@
 package netherchest.common.tileentity;
 
+import java.rmi.registry.Registry;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -197,7 +199,7 @@ public class TileEntityNetherChest extends TileEntity implements ITickable, IWor
 	@Nullable
 	@Override
 	public SPacketUpdateTileEntity getUpdatePacket() {
-		return new SPacketUpdateTileEntity(getPos(), 0, getUpdateTag());
+		return new SPacketUpdateTileEntity(getPos(), getBlockMetadata(), getUpdateTag());
 	}
 
 	@Override

@@ -66,8 +66,6 @@ public class BlockNetherChest extends Block implements ITileEntityProvider {
 		setResistance(1000.0F);
 		setSoundType(SoundType.STONE);
 		setCreativeTab(CreativeTabs.DECORATIONS);
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlock(this), getRegistryName());
 	}
 
 	@Override
@@ -159,11 +157,12 @@ public class BlockNetherChest extends Block implements ITileEntityProvider {
 		if (worldIn.isRemote) {
 			return true;
 		} else {
-			playerIn.openGui(NetherChest.instance, GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
 			
-			if (worldIn.provider.getDimension() == -1) {
+			if (Config.NETHER_EXPLOSION && worldIn.provider.getDimension() == -1) {
 				worldIn.setBlockToAir(pos);
 				worldIn.createExplosion(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, Config.EXPLOSION_RADIUS, true);
+			} else {
+				playerIn.openGui(NetherChest.instance, GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
 			}
 			
 			return true;
@@ -221,13 +220,6 @@ public class BlockNetherChest extends Block implements ITileEntityProvider {
 		super.eventReceived(state, worldIn, pos, id, param);
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 		return tileentity == null ? false : tileentity.receiveClientEvent(id, param);
-	}
-
-	@SideOnly(Side.CLIENT)
-	public void initModel() {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0,
-				new ModelResourceLocation(getRegistryName(), "inventory"));
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityNetherChest.class, new TileEntityNetherChestRenderer());
 	}
 
 }

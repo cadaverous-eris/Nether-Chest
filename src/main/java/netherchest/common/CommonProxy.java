@@ -2,6 +2,7 @@ package netherchest.common;
 
 import java.io.File;
 
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -21,7 +22,6 @@ public class CommonProxy {
         config = new Configuration(new File(directory.getPath(), "netherchest.cfg"));
         Config.readConfig();
 		
-		Content.init();
 	}
 	
 	public void init(FMLInitializationEvent event) {

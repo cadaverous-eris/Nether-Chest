@@ -7,13 +7,14 @@ import org.lwjgl.opengl.GL11;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelChest;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -25,8 +26,9 @@ public class TileEntityNetherChestRenderer extends TileEntitySpecialRenderer<Til
 	private final ModelChest model = new ModelChest();
 	private final Random rand = new Random();
 
-	public void renderTileEntityAt(TileEntityNetherChest te, double x, double y, double z, float partialTicks,
-			int destroyStage) {
+	@Override
+	public void render(TileEntityNetherChest te, double x, double y, double z, float partialTicks,
+			int destroyStage, float alpha) {
 		
 		GlStateManager.enableDepth();
 		GlStateManager.depthFunc(515);
@@ -148,7 +150,7 @@ public class TileEntityNetherChestRenderer extends TileEntitySpecialRenderer<Til
 		int alpha = (int) (128 * Math.sqrt(angle));
 		
 		Tessellator tess = Tessellator.getInstance();
-        VertexBuffer buffer = tess.getBuffer();
+        BufferBuilder buffer = tess.getBuffer();
         //buffer.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormats.POSITION_COLOR);
         
         for (int i = 0; i < 4; i++) {
@@ -205,7 +207,7 @@ public class TileEntityNetherChestRenderer extends TileEntitySpecialRenderer<Til
 		GlStateManager.translate(x + 0.5D, y + 0.4375D, z + 0.5D);
 		
 		Tessellator tess = Tessellator.getInstance();
-        VertexBuffer buffer = tess.getBuffer();
+        BufferBuilder buffer = tess.getBuffer();
         
         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
         

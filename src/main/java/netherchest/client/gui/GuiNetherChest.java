@@ -38,8 +38,8 @@ public class GuiNetherChest extends GuiContainerExtended {
     
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        this.fontRendererObj.drawString(this.te.getDisplayName().getUnformattedText(), 8, 6, 4210752);
-        this.fontRendererObj.drawString(this.playerinventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 4, 4210752);
+        this.fontRenderer.drawString(this.te.getDisplayName().getUnformattedText(), 8, 6, 4210752);
+        this.fontRenderer.drawString(this.playerinventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 4, 4210752);
     }
 
 	@Override

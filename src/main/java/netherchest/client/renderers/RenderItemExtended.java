@@ -5,10 +5,10 @@ import javax.annotation.Nullable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
@@ -47,7 +47,7 @@ public class RenderItemExtended {
 				GlStateManager.disableAlpha();
 				GlStateManager.disableBlend();
 				Tessellator tessellator = Tessellator.getInstance();
-				VertexBuffer vertexbuffer = tessellator.getBuffer();
+				BufferBuilder vertexbuffer = tessellator.getBuffer();
 				double health = stack.getTopStack().getItem().getDurabilityForDisplay(stack.getTopStack());
 				int rgbfordisplay = stack.getTopStack().getItem().getRGBDurabilityForDisplay(stack.getTopStack());
 				int i = Math.round(13.0F - (float) health * 13.0F);
@@ -90,7 +90,7 @@ public class RenderItemExtended {
 				GlStateManager.disableDepth();
 				GlStateManager.disableTexture2D();
 				Tessellator tessellator1 = Tessellator.getInstance();
-				VertexBuffer vertexbuffer1 = tessellator1.getBuffer();
+				BufferBuilder vertexbuffer1 = tessellator1.getBuffer();
 				this.draw(vertexbuffer1, xPosition, yPosition + MathHelper.floor(16.0F * (1.0F - f3)), 16,
 						MathHelper.ceil(16.0F * f3), 255, 255, 255, 127);
 				GlStateManager.enableTexture2D();
@@ -100,7 +100,7 @@ public class RenderItemExtended {
 		}
 	}
 
-	private void draw(VertexBuffer renderer, int x, int y, int width, int height, int red, int green, int blue,
+	private void draw(BufferBuilder renderer, int x, int y, int width, int height, int red, int green, int blue,
 			int alpha) {
 		renderer.begin(7, DefaultVertexFormats.POSITION_COLOR);
 		renderer.pos((double) (x + 0), (double) (y + 0), 0.0D).color(red, green, blue, alpha).endVertex();
