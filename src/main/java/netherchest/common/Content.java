@@ -67,6 +67,7 @@ public class Content {
 	}
 	
 	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
     public static void setupModels(ModelRegistryEvent event) {
 		ModelLoader.setCustomModelResourceLocation(NETHER_CHEST_ITEM, 0,
 				new ModelResourceLocation(NETHER_CHEST_ITEM.getRegistryName(), "inventory"));
