@@ -12,6 +12,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -81,6 +82,11 @@ public class BlockNetherChest extends Block implements ITileEntityProvider {
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return CHEST_AABB;
+	}
+	
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing facing) {
+		return BlockFaceShape.UNDEFINED;
 	}
 
 	@Override
@@ -177,7 +183,7 @@ public class BlockNetherChest extends Block implements ITileEntityProvider {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-		for (int i = 0; i < 3; ++i) {
+		for (int i = 0; i < Config.PARTICLE_COUNT; ++i) {
 			int j = rand.nextInt(2) * 2 - 1;
 			int k = rand.nextInt(2) * 2 - 1;
 			double d0 = (double) pos.getX() + 0.5D + (0.4375D * (double) j);
@@ -186,7 +192,7 @@ public class BlockNetherChest extends Block implements ITileEntityProvider {
 			double d3 = 0;
 			double d4 = ((double) rand.nextFloat()) * 0.015625D;
 			double d5 = 0;
-			if (rand.nextInt(16) == 0) {
+			if (rand.nextInt(8) == 0) {
 				worldIn.spawnParticle(EnumParticleTypes.FLAME, d0, d1, d2, d3, d4 * 4, d5, new int[0]);
 			} else {
 				worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, d3, d4, d5, new int[0]);

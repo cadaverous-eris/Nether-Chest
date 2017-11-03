@@ -20,6 +20,9 @@ public class ExtendedItemStackHandler
 
 	public ExtendedItemStackHandler(int size) {
 		stacks = NonNullList.<ExtendedItemStack>withSize(size, new ExtendedItemStack());
+		for (int i = 0; i < stacks.size(); i++) {
+			stacks.set(i, new ExtendedItemStack());
+		}
 	}
 
 	public ExtendedItemStackHandler(NonNullList<ExtendedItemStack> stacks) {
@@ -28,6 +31,9 @@ public class ExtendedItemStackHandler
 
 	public void setSize(int size) {
 		stacks = NonNullList.<ExtendedItemStack>withSize(size, new ExtendedItemStack());
+		for (int i = 0; i < stacks.size(); i++) {
+			stacks.set(i, new ExtendedItemStack());
+		}
 	}
 
 	@Override
@@ -53,11 +59,10 @@ public class ExtendedItemStackHandler
 			ExtendedItemStack temp = stacks.get(slot).copy();
 			return temp.add(stack);
 		} else {
-			ExtendedItemStack temp = stacks.get(slot).copy();
-			if (!temp.add(stack).isEmpty()) {
-				onContentsChanged(slot);
-			}
-			return stacks.get(slot).add(stack);
+			//if (stacks.get(slot).isEmpty()) stacks.set(slot, new ExtendedItemStack());
+			ItemStack ret = stacks.get(slot).add(stack);
+			onContentsChanged(slot);
+			return ret;
 		}
 	}
 

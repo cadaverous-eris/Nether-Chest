@@ -10,7 +10,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.NonNullList;
 
 public class ExtendedItemStack {
-
+	
 	public NonNullList<ItemStack> stacks;
 
 	public ExtendedItemStack() {

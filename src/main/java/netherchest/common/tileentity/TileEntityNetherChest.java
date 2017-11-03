@@ -26,6 +26,8 @@ import net.minecraft.world.IWorldNameable;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import netherchest.common.Config;
 import netherchest.common.blocks.BlockNetherChest;
 import netherchest.common.inventory.ContainerNetherChest;
 import netherchest.common.inventory.ExtendedItemStackHandler;
@@ -218,13 +220,16 @@ public class TileEntityNetherChest extends TileEntity implements ITickable, IWor
 
 	@Override
 	public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-		return super.hasCapability(capability, facing);
+		return (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && Config.ENABLE_AUTOMATION) || super.hasCapability(capability, facing);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	@Nullable
 	public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && Config.ENABLE_AUTOMATION) {
+			return (T) this.itemHandler;
+		}
 		return super.getCapability(capability, facing);
 	}
 	
