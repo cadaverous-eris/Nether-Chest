@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -33,7 +34,7 @@ import netherchest.common.tileentity.TileEntityNetherChest;
 @ObjectHolder("netherchest")
 @Mod.EventBusSubscriber(modid = NetherChest.MODID)
 public class Content {
-
+	
 	@ObjectHolder("nether_chest")
 	public static final Block NETHER_CHEST = null;
 	
@@ -72,6 +73,12 @@ public class Content {
 		ModelLoader.setCustomModelResourceLocation(NETHER_CHEST_ITEM, 0,
 				new ModelResourceLocation(NETHER_CHEST_ITEM.getRegistryName(), "inventory"));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityNetherChest.class, new TileEntityNetherChestRenderer());
+	}
+	
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public static void onTextureStitch(TextureStitchEvent.Post event) {
+		TileEntityNetherChestRenderer.portalSprite = event.getMap().getTextureExtry("minecraft:blocks/portal");
 	}
 
 }

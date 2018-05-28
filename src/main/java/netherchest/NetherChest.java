@@ -15,11 +15,7 @@ public class NetherChest {
 	
 	public static final String MODID = "netherchest";
 	public static final String NAME = "Nether Chest";
-	public static final String VERSION = "0.2.2";
-	
-	public NetherChest() {
-		//MinecraftForge.EVENT_BUS.register(Content.class);
-	}
+	public static final String VERSION = "0.2.3";
 	
 	@SidedProxy(clientSide = "netherchest.client.ClientProxy", serverSide = "netherchest.common.CommonProxy")
 	public static CommonProxy proxy;
