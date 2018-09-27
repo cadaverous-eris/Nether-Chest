@@ -158,10 +158,9 @@ public class TileEntityNetherChest extends TileEntity implements ITickable, IWor
 		this.invalidate();
 		if (itemHandler != null && !world.isRemote) {
 			for (int i = 0; i < itemHandler.getSlots(); i++) {
-				for (ItemStack stack : itemHandler.getExtendedStackInSlot(i).getAllStacks()) {
-					if (stack != null && !stack.isEmpty()) {
-						state.getBlock().spawnAsEntity(world, pos, stack);
-					}
+				ItemStack stack = itemHandler.getStackInSlot(i);
+				if (stack != null && !stack.isEmpty()) {
+					state.getBlock().spawnAsEntity(world, pos, stack);
 				}
 			}
 		}

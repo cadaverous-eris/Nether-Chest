@@ -24,29 +24,25 @@ public class SlotExtended extends Slot {
 	}
 
 	@Override
-	public boolean isItemValid(@Nonnull ItemStack stack) {
-		if (stack.isEmpty())
-			return false;
+    public boolean isItemValid(@Nonnull ItemStack stack) {
+        if (stack.isEmpty()) return false;
 
-		ExtendedItemStackHandler handler = this.getItemHandler();
-		ItemStack remainder;
-		ExtendedItemStack currentStack = handler.getExtendedStackInSlot(index);
-		handler.setExtendedStackInSlot(index, new ExtendedItemStack());
-		remainder = handler.insertItem(index, stack, true);
-		handler.setExtendedStackInSlot(index, currentStack);
-		boolean v = remainder.isEmpty() || remainder.getCount() < stack.getCount();
-		return v;
-	}
+        ExtendedItemStackHandler handler = this.getItemHandler();
+        ItemStack currentStack = getItemHandler().getStackInSlot(index);
+
+        getItemHandler().setStackInSlot(index, ItemStack.EMPTY);
+
+        ItemStack remainder = getItemHandler().insertItem(index, stack, true);
+
+        getItemHandler().setStackInSlot(index, currentStack);
+
+        return remainder.isEmpty() || remainder.getCount() < stack.getCount();
+    }
 
 	@Override
 	@Nonnull
 	public ItemStack getStack() {
 		return this.getItemHandler().getStackInSlot(index);
-	}
-
-	@Nonnull
-	public ExtendedItemStack getExtendedStack() {
-		return this.getItemHandler().getExtendedStackInSlot(index);
 	}
 
 	@Override
@@ -67,23 +63,7 @@ public class SlotExtended extends Slot {
 
 	@Override
 	public int getItemStackLimit(@Nonnull ItemStack stack) {
-		ItemStack temp = stack.copy();
-		temp.setCount(1);
-		ExtendedItemStackHandler handler = this.getItemHandler();
-		ExtendedItemStack currentStack = handler.getExtendedStackInSlot(index);
-
-		if (handler.insertItem(index, temp, true).isEmpty()) {
-			//return currentStack.getMaxCount();
-			int t = Math.min(currentStack.getMaxCount() - currentStack.getCount(), stack.getMaxStackSize());
-			t = currentStack.getMaxCount() - currentStack.getCount();
-			int ret = currentStack.getTopStack().getCount() + t;
-			ret = currentStack.getMaxCount();
-			//System.out.println(ret);
-			return ret;
-			//return currentStack.getTopStack().getMaxStackSize();
-		} else {
-			return currentStack.getTopStack().getCount();
-		}
+		return this.itemHandler.getStackLimit(this.index, stack);
 	}
 
 	@Override

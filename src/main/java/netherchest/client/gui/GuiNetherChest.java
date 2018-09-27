@@ -10,6 +10,7 @@ import com.google.common.collect.Sets;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -17,7 +18,7 @@ import netherchest.NetherChest;
 import netherchest.common.inventory.ContainerNetherChest;
 import netherchest.common.tileentity.TileEntityNetherChest;
 
-public class GuiNetherChest extends GuiContainerExtended {
+public class GuiNetherChest extends GuiContainer {
 	
 	public static final int WIDTH = 176;
     public static final int HEIGHT = 166;
