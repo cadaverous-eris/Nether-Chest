@@ -28,7 +28,8 @@ public class GuiProxy implements IGuiHandler {
 		BlockPos pos = new BlockPos(x, y, z);
 		TileEntity te = world.getTileEntity(pos);
 		if (ID == BlockNetherChest.GUI_ID && te instanceof TileEntityNetherChest) {
-			return new GuiNetherChest(new ContainerNetherChest((TileEntityNetherChest) te, player), player.inventory);
+			ContainerNetherChest container = new ContainerNetherChest((TileEntityNetherChest) te, player);
+			return new GuiNetherChest(container, player.inventory);
 		}
 		return null;
 	}

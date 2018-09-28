@@ -53,6 +53,10 @@ public class TileEntityNetherChest extends TileEntity implements ITickable, IWor
 	public int getRenderTick() {
 		return renderTick;
 	}
+	
+	public int getComparatorSignal() {
+		return this.itemHandler.calcRedstone();
+	}
 
 	@Override
 	public void update() {

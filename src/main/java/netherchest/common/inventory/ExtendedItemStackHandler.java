@@ -1,11 +1,14 @@
 package netherchest.common.inventory;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.IItemHandler;
@@ -42,6 +45,25 @@ public class ExtendedItemStackHandler extends ItemStackHandler {
     }
 	
 	@Override
+    public NBTTagCompound serializeNBT() {
+        NBTTagList nbtTagList = new NBTTagList();
+        for (int i = 0; i < stacks.size(); i++) {
+            if (!stacks.get(i).isEmpty()) {
+            	short realCount = (short) Math.min(Short.MAX_VALUE, stacks.get(i).getCount());
+                NBTTagCompound itemTag = new NBTTagCompound();
+                itemTag.setInteger("Slot", i);
+                stacks.get(i).writeToNBT(itemTag);
+                itemTag.setShort("ExtendedCount", realCount);
+                nbtTagList.appendTag(itemTag);
+            }
+        }
+        NBTTagCompound nbt = new NBTTagCompound();
+        nbt.setTag("Items", nbtTagList);
+        nbt.setInteger("Size", stacks.size());
+        return nbt;
+    }
+	
+	@Override
     public void deserializeNBT(NBTTagCompound nbt) {
         setSize(nbt.hasKey("Size", Constants.NBT.TAG_INT) ? nbt.getInteger("Size") : stacks.size());
         NBTTagList tagList = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND);
@@ -69,11 +91,32 @@ public class ExtendedItemStackHandler extends ItemStackHandler {
             			stacks.set(slot, stack);
         			}
         		} else {
-        			stacks.set(slot, new ItemStack(itemTags));
+        			ItemStack stack = new ItemStack(itemTags);
+        			if (itemTags.hasKey("ExtendedCount", Constants.NBT.TAG_SHORT)) {
+        				stack.setCount(itemTags.getShort("ExtendedCount"));
+        			}
+        			stacks.set(slot, stack);
         		}
             }
         }
         onLoad();
+    }
+	
+	public int calcRedstone() {
+	    int numStacks = 0;
+	    float f = 0F;
+	
+	    for (int slot = 0; slot < this.getSlots(); slot++) {
+	        ItemStack stack = this.getStackInSlot(slot);
+	
+	        if (!stack.isEmpty()) {
+	            f += (float) stack.getCount() / (float) this.getStackLimit(slot, stack);
+	            numStacks++;
+	        }
+	    }
+	
+	    f /= this.getSlots();
+	    return MathHelper.floor(f * 14F) + (numStacks > 0 ? 1 : 0);
     }
 
 }

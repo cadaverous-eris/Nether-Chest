@@ -22,6 +22,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
@@ -199,6 +200,22 @@ public class BlockNetherChest extends Block implements ITileEntityProvider {
 			}
 		}
 	}
+	
+	@Override
+	public boolean hasComparatorInputOverride(IBlockState state) {
+        return true;
+    }
+
+	@Override
+    public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
+		TileEntity tileEntity = worldIn.getTileEntity(pos);
+		if (tileEntity != null && tileEntity instanceof TileEntityNetherChest) {
+			TileEntityNetherChest te = (TileEntityNetherChest) tileEntity;
+			
+			return te.getComparatorSignal();
+		}
+        return 0;
+    }
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
