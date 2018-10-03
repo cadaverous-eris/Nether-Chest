@@ -72,7 +72,12 @@ public class ContainerNetherChest extends Container {
 		for (int row = 0; row < 9; ++row) {
 			int x = 8 + row * 18;
 			int y = 142;
-			this.addSlotToContainer(new Slot(playerinventory, row, x, y));
+			this.addSlotToContainer(new Slot(playerinventory, row, x, y) {
+				@Override
+				public int getItemStackLimit(ItemStack stack) {
+			        return Math.min(this.getSlotStackLimit(), stack.getMaxStackSize());
+			    }
+			});
 		}
 	}
 

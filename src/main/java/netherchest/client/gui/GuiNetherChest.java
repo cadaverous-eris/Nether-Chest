@@ -99,6 +99,7 @@ public class GuiNetherChest extends GuiContainer {
 	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		this.drawDefaultBackground();
         int i = this.guiLeft;
         int j = this.guiTop;
         this.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
@@ -192,6 +193,8 @@ public class GuiNetherChest extends GuiContainer {
         GlStateManager.enableLighting();
         GlStateManager.enableDepth();
         RenderHelper.enableStandardItemLighting();
+        
+        this.renderHoveredToolTip(mouseX, mouseY);
     }
 	
 	@Override
