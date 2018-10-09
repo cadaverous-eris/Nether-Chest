@@ -36,7 +36,8 @@ import netherchest.NetherChest;
 import netherchest.client.renderers.RenderItemExtended;
 import netherchest.common.inventory.ContainerNetherChest;
 import netherchest.common.inventory.SlotExtended;
-import netherchest.common.network.CPacketClickWindowExtended;
+import netherchest.common.network.MessageClickWindowExtended;
+import netherchest.common.network.PacketHandler;
 import netherchest.common.tileentity.TileEntityNetherChest;
 
 public class GuiNetherChest extends GuiContainer {
@@ -610,7 +611,8 @@ public class GuiNetherChest extends GuiContainer {
 	
 	@Override
 	protected void handleMouseClick(Slot slotIn, int slotId, int mouseButton, ClickType type) {
-        if (slotIn != null) {
+		super.handleMouseClick(slotIn, slotId, mouseButton, type);
+        /*if (slotIn != null) {
             slotId = slotIn.slotNumber;
         }
         
@@ -618,11 +620,11 @@ public class GuiNetherChest extends GuiContainer {
         ItemStack itemstack = this.mc.player.openContainer.slotClick(slotId, mouseButton, type, this.mc.player);
         INetHandler h = FMLClientHandler.instance().getClientPlayHandler();
         if (h != null && h instanceof NetHandlerPlayClient) {
-        	((NetHandlerPlayClient) h).sendPacket(new CPacketClickWindowExtended(this.inventorySlots.windowId, slotId, mouseButton, type, itemstack, short1));
+        	//PacketHandler.INSTANCE.sendToServer(new MessageClickWindowExtended(this.inventorySlots.windowId, slotId, mouseButton, type, itemstack, short1));
         } else {
         	this.mc.playerController.windowClick(this.inventorySlots.windowId, slotId, mouseButton, type, this.mc.player);
         }
-        //Minecraft.getMinecraft().getConnection()
+        */
     }
 
 }

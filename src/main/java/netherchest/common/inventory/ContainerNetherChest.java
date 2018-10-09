@@ -23,8 +23,8 @@ import net.minecraft.network.play.server.SPacketWindowItems;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import netherchest.common.network.SPacketSetSlotExtended;
-import netherchest.common.network.SPacketWindowItemsExtended;
+import netherchest.common.network.MessageSyncExtendedSlotContents;
+import netherchest.common.network.PacketHandler;
 import netherchest.common.tileentity.TileEntityNetherChest;
 
 public class ContainerNetherChest extends Container {
@@ -118,7 +118,7 @@ public class ContainerNetherChest extends Container {
 				slot.onSlotChanged();
 			}
 		}
-
+		
 		return itemstack;
 	}
 	
@@ -395,7 +395,12 @@ public class ContainerNetherChest extends Container {
 
             this.detectAndSendChanges();
         }
-
+        
+        if (itemstack.getCount() > 64) {
+        	itemstack = itemstack.copy();
+        	itemstack.setCount(64);
+        }
+        
         return itemstack;
     }
 
@@ -500,27 +505,15 @@ public class ContainerNetherChest extends Container {
             ItemStack itemstack1 = this.inventoryItemStacks.get(i);
 
             if (!ItemStack.areItemStacksEqual(itemstack1, itemstack)) {    	
-                boolean clientStackChanged = !ItemStack.areItemStacksEqualUsingNBTShareTag(itemstack1, itemstack);
                 itemstack1 = itemstack.isEmpty() ? ItemStack.EMPTY : itemstack.copy();
                 this.inventoryItemStacks.set(i, itemstack1);
-                
-                if (clientStackChanged)
+            
                 for (int j = 0; j < this.listeners.size(); ++j) {
-                	IContainerListener listener = (IContainerListener)this.listeners.get(j);
+                	IContainerListener listener = (IContainerListener) this.listeners.get(j);
                 	if (listener instanceof EntityPlayerMP) {
                     	EntityPlayerMP player = (EntityPlayerMP) listener;
-                    	
-                    	if (!(this.getSlot(i) instanceof SlotCrafting)) {
-                            if (this == player.inventoryContainer) {
-                                CriteriaTriggers.INVENTORY_CHANGED.trigger(player, player.inventory);
-                            }
 
-                            if (!player.isChangingQuantityOnly) {
-                                player.connection.sendPacket(new SPacketSetSlotExtended(this.windowId, i, itemstack1));
-                            }
-                        }
-                	} else {
-                		listener.sendSlotContents(this, i, itemstack1);
+                        this.syncSlot(player, i, itemstack1);
                 	}
                 }
             }
@@ -536,13 +529,29 @@ public class ContainerNetherChest extends Container {
             if (listener instanceof EntityPlayerMP) {
             	EntityPlayerMP player = (EntityPlayerMP) listener;
             	
-            	player.connection.sendPacket(new SPacketWindowItemsExtended(this.windowId, this.getInventory()));
-            	player.connection.sendPacket(new SPacketSetSlotExtended(-1, -1, player.inventory.getItemStack()));
-            } else {
-            	listener.sendAllContents(this, this.getInventory());
+            	this.syncInventory(player);
             }
             this.detectAndSendChanges();
         }
+    }
+	
+	public void syncInventory(EntityPlayerMP player) {
+		for (int i = 0; i < this.inventorySlots.size(); i++) {
+			ItemStack stack = (this.inventorySlots.get(i)).getStack();
+			
+			PacketHandler.INSTANCE.sendTo(new MessageSyncExtendedSlotContents(this.windowId, i, stack), player);
+		}
+		
+		player.connection.sendPacket(new SPacketSetSlot(-1, -1, player.inventory.getItemStack()));
+	}
+	
+	public void syncSlot(EntityPlayerMP player, int slot, ItemStack stack) {
+		PacketHandler.INSTANCE.sendTo(new MessageSyncExtendedSlotContents(this.windowId, slot, stack), player);
+	}
+	
+	@Override
+	public void setCanCraft(EntityPlayer player, boolean canCraft) {
+        super.setCanCraft(player, canCraft);
     }
 
 }

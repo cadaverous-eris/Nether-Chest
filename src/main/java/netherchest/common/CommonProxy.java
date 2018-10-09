@@ -11,17 +11,18 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import netherchest.NetherChest;
 import netherchest.client.GuiProxy;
 import netherchest.common.blocks.BlockNetherChest;
+import netherchest.common.network.PacketHandler;
 
 public class CommonProxy {
 	
 	public static Configuration config;
 	
 	public void preInit(FMLPreInitializationEvent event) {
+		PacketHandler.registerMessages();
 		
 		File directory = event.getModConfigurationDirectory();
         config = new Configuration(new File(directory.getPath(), "netherchest.cfg"));
         Config.readConfig();
-		
 	}
 	
 	public void init(FMLInitializationEvent event) {
@@ -29,11 +30,9 @@ public class CommonProxy {
 	}
 	
 	public void postInit(FMLPostInitializationEvent event) {
-		
 		if (config.hasChanged()) {
             config.save();
         }
-		
 	}
 
 }

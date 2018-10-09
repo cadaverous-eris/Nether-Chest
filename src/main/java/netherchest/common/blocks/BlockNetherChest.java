@@ -158,7 +158,7 @@ public class BlockNetherChest extends Block implements ITileEntityProvider {
 		}
 		if (worldIn.getTileEntity(pos) instanceof TileEntityNetherChest) {
 			if (((TileEntityNetherChest) worldIn.getTileEntity(pos)).numPlayersUsing > 0) {
-				return true;
+				//return true;
 			}
 		}
 		if (worldIn.isRemote) {
