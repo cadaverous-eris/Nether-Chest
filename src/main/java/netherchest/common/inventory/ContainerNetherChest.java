@@ -428,7 +428,7 @@ public class ContainerNetherChest extends Container {
             Slot slot = this.inventorySlots.get(i);
             ItemStack itemstack = slot.getStack();
 
-            if (!itemstack.isEmpty() && itemstack.getItem() == stack.getItem() && (!stack.getHasSubtypes() || stack.getMetadata() == itemstack.getMetadata()) && ItemStack.areItemStackTagsEqual(stack, itemstack)) {
+            if (!itemstack.isEmpty() && itemstack.getItem() == stack.getItem() && (stack.getMetadata() == itemstack.getMetadata()) && ItemStack.areItemStackTagsEqual(stack, itemstack)) {
                 int j = itemstack.getCount() + stack.getCount();
                 int maxSize = slot.getItemStackLimit(itemstack);
 

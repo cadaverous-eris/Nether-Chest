@@ -15,7 +15,7 @@ public class NetherChest {
 	
 	public static final String MODID = "netherchest";
 	public static final String NAME = "Nether Chest";
-	public static final String VERSION = "1.1.0";
+	public static final String VERSION = "1.1.1";
 	
 	@SidedProxy(clientSide = "netherchest.client.ClientProxy", serverSide = "netherchest.common.CommonProxy")
 	public static CommonProxy proxy;
